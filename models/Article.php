@@ -10,7 +10,8 @@
     private string $title = "";
     private string $content = "";
     private ?DateTime $dateCreation = null;
-    private ?DateTime $dateUpdate = null;  
+    private ?DateTime $dateUpdate = null;
+    private int $views = 0;
 
     /**
      * Setter pour l'id de l'utilisateur. 
@@ -46,6 +47,24 @@
     public function getTitle() : string 
     {
         return $this->title;
+    }
+
+    /**
+     * Setter pour le nombre de vues.
+     * @param int $views
+     */
+    public function setViews(int $views) : void
+    {
+        $this->views = $views;
+    }
+
+    /**
+     * Getter pour le nombre de vues.
+     * @return int
+     */
+    public function getViews() : int
+    {
+        return $this->views;
     }
 
     /**
@@ -105,11 +124,11 @@
 
     /**
      * Setter pour la date de mise à jour. Si la date est une string, on la convertit en DateTime.
-     * @param string|DateTime $dateUpdate
+     * @param string|DateTime|null $dateUpdate
      * @param string $format : le format pour la convertion de la date si elle est une string.
      * Par défaut, c'est le format de date mysql qui est utilisé.
      */
-    public function setDateUpdate(string|DateTime $dateUpdate, string $format = 'Y-m-d H:i:s') : void 
+    public function setDateUpdate(string|DateTime|null $dateUpdate, string $format = 'Y-m-d H:i:s') : void 
     {
         if (is_string($dateUpdate)) {
             $dateUpdate = DateTime::createFromFormat($format, $dateUpdate);
