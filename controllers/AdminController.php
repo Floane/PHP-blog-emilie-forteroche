@@ -33,8 +33,13 @@ class AdminController {
     {
         $this->checkIfUserIsConnected();
 
+        $articleManager = new ArticleManager();
+        $articles = $articleManager->getArticlesForMonitoring();
+
         $view = new View("Monitoring");
-        $view->render("monitoring");
+        $view->render("monitoring", [
+            'articles' => $articles
+        ]);
     }
 
     /**

@@ -20,6 +20,25 @@ class ArticleManager extends AbstractEntityManager
         }
         return $articles;
     }
+
+    /**
+     * Récupère les articles pour le monitoring.
+     * @return array : un tableau d'objets Article.
+     */
+    public function getArticlesForMonitoring() : array
+    {
+        $sql = "SELECT article.id, article.title, article.views, article.date_creation, COUNT(comment.id) AS nb_comments
+        FROM article
+        LEFT JOIN comment ON article.id = comment.id_article
+        GROUP BY article.id";
+        $result = $this->db->query($sql);
+        $articles = [];
+
+        while ($article = $result->fetch()) {
+            $articles[] = new Article($article);
+        }
+        return $articles;
+    }
     
     /**
      * Récupère un article par son id.
