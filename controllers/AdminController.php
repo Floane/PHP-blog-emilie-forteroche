@@ -26,6 +26,18 @@ class AdminController {
     }
 
     /**
+     * Affiche la page de monitoring.
+     * @return void
+     */
+    public function showMonitoring() : void
+    {
+        $this->checkIfUserIsConnected();
+
+        $view = new View("Monitoring");
+        $view->render("monitoring");
+    }
+
+    /**
      * Vérifie que l'utilisateur est connecté.
      * @return void
      */
