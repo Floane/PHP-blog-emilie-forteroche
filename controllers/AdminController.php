@@ -36,12 +36,19 @@ class AdminController {
         $sort = Utils::request("sort", "date");
         $order = Utils::request("order", "desc");
 
+        if (!is_string($sort) || !in_array($sort, ['title', 'views', 'comments', 'date'], true)) {
+            $sort = 'date';
+        }
+        $order = (is_string($order) && strtolower($order) === 'asc') ? "asc" : "desc";
+
         $articleManager = new ArticleManager();
         $articles = $articleManager->getArticlesForMonitoring($sort, $order);
 
         $view = new View("Monitoring");
         $view->render("monitoring", [
-            'articles' => $articles
+            'articles' => $articles,
+            'sort' => $sort,
+            'order' => $order
         ]);
     }
 
