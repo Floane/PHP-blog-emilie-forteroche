@@ -20,7 +20,9 @@
             <tr>
                 <td><?= htmlspecialchars($article->getTitle()) ?></td>
                 <td class="number"><?= $article->getViews() ?></td>
-                <td class="number"><?= $article->getNbComments() ?></td>
+                <td class="number">
+                    <a href="index.php?action=showComments&id=<?= $article->getId() ?>"><?= $article->getNbComments() ?></a>
+                </td>
                 <td><?= Utils::convertDateToFrenchFormat($article->getDateCreation()) ?></td>
             </tr>
         <?php endforeach; ?>

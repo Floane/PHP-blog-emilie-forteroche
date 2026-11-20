@@ -380,6 +380,32 @@ a.info {
     width: 140px;
 }
 
+/**
+ * Gestion des commentaires (admin)
+ */
+.successMessage {
+    margin-bottom: 20px;
+    padding: 15px 20px;
+    color: white;
+    background-color: var(--commentColor);
+}
+
+.backLink {
+    display: inline-block;
+    margin-top: 20px;
+    color: var(--headerColor);
+    font-weight: bold;
+}
+
+.monitoring td a {
+    color: var(--dateColor);
+    font-weight: bold;
+}
+
+.monitoring td a.submit {
+    color: white;
+}
+
 /** 
  * Footer global de la page.
  */

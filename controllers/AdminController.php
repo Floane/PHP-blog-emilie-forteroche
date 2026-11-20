@@ -199,6 +199,36 @@ class AdminController {
 
 
     /**
+     * Affichage des commentaires d'un article.
+     * @return void
+     */
+    public function showComments() : void
+    {
+        $this->checkIfUserIsConnected();
+
+        $id = (int) Utils::request("id", -1);
+        $articleManager = new ArticleManager();
+        $article = $articleManager->getArticleById($id);
+        if (!$article) {
+            throw new Exception("L'article demandé n'existe pas.");
+        }
+
+        $commentManager = new CommentManager();
+        $comments = $commentManager->getAllCommentsByArticleId($id);
+
+        $message = $_SESSION['message'] ?? null;
+        unset($_SESSION['message']);
+
+        $view = new View("Commentaires");
+        $view->render("comments", [
+            'article' => $article,
+            'comments' => $comments,
+            'message' => $message
+        ]);
+    }
+
+
+    /**
      * Suppression d'un commentaire.
      * @return void
      */
@@ -217,6 +247,8 @@ class AdminController {
         $idArticle = $comment->getIdArticle();
 
         $commentManager->deleteComment($id);
+
+        $_SESSION['message'] = "Le commentaire a bien été supprimé.";
 
         Utils::redirect("showComments", ['id' => $idArticle]);
     }
