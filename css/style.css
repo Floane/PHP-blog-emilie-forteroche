@@ -337,6 +337,49 @@ a.info {
     border: 1px solid var(--backgroundColor);
 }
 
+/**
+ * Tableau de monitoring (admin)
+ */
+.monitoring {
+    width: 100%;
+    margin-bottom: 20px;
+    border-collapse: collapse;
+    background-color: white;
+}
+
+.monitoring th, .monitoring td {
+    padding: 15px 20px;
+    text-align: left;
+}
+
+.monitoring th {
+    background-color: var(--headerColor);
+    color: white;
+    text-transform: uppercase;
+    font-size: 14px;
+}
+
+.monitoring td {
+    border-bottom: 1px solid var(--headerPaleColor);
+}
+
+.monitoring tbody tr:nth-child(even) {
+    background-color: var(--backgroundColor);
+}
+
+.monitoring tbody tr:nth-child(odd) {
+    background-color: var(--headerPaleColor);
+}
+
+.monitoring tbody tr:hover {
+    background-color: var(--headerPaleColor);
+}
+
+.monitoring .number {
+    text-align: center;
+    width: 140px;
+}
+
 /** 
  * Footer global de la page.
  */
