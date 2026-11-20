@@ -23,14 +23,26 @@ class ArticleManager extends AbstractEntityManager
 
     /**
      * Récupère les articles pour le monitoring.
+     * @param string $sort : la colonne de tri (title, views, comments, date).
+     * @param string $order : l'ordre de tri (asc, desc).
      * @return array : un tableau d'objets Article.
      */
-    public function getArticlesForMonitoring() : array
+    public function getArticlesForMonitoring(string $sort = 'date', string $order = 'desc') : array
     {
+        $allowedSorts = [
+            'title' => 'article.title',
+            'views' => 'article.views',
+            'comments' => 'nb_comments',
+            'date' => 'article.date_creation'
+        ];
+
+        $sortColumn = $allowedSorts[$sort] ?? 'article.date_creation';
+        $sortOrder = (strtolower($order) === 'asc') ? 'ASC' : 'DESC';
         $sql = "SELECT article.id, article.title, article.views, article.date_creation, COUNT(comment.id) AS nb_comments
         FROM article
         LEFT JOIN comment ON article.id = comment.id_article
-        GROUP BY article.id";
+        GROUP BY article.id
+        ORDER BY $sortColumn $sortOrder";
         $result = $this->db->query($sql);
         $articles = [];
 

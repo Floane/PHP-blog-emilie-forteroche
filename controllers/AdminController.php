@@ -33,8 +33,11 @@ class AdminController {
     {
         $this->checkIfUserIsConnected();
 
+        $sort = Utils::request("sort", "date");
+        $order = Utils::request("order", "desc");
+
         $articleManager = new ArticleManager();
-        $articles = $articleManager->getArticlesForMonitoring();
+        $articles = $articleManager->getArticlesForMonitoring($sort, $order);
 
         $view = new View("Monitoring");
         $view->render("monitoring", [
