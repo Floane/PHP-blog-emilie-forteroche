@@ -196,4 +196,28 @@ class AdminController {
         // On redirige vers la page d'administration.
         Utils::redirect("admin");
     }
+
+
+    /**
+     * Suppression d'un commentaire.
+     * @return void
+     */
+    public function deleteComment() : void
+    {
+        $this->checkIfUserIsConnected();
+
+        $id = (int) Utils::request("id", -1);
+
+        $commentManager = new CommentManager();
+        $comment = $commentManager->getCommentById($id);
+        if (!$comment) {
+            throw new Exception("Le commentaire demandé n'existe pas.");
+        }
+
+        $idArticle = $comment->getIdArticle();
+
+        $commentManager->deleteComment($id);
+
+        Utils::redirect("showComments", ['id' => $idArticle]);
+    }
 }
